@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   def index
     @products = Product.all
+    @order_items = current_order.order_items.new
   end
 
   def new 
