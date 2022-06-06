@@ -1,0 +1,28 @@
+<h1>Products#index</h1>
+<table border = "2px">
+    <tr><center>Products Details </center></tr>
+    <tr>
+      <td>Name</td><td>Description</td><td>Price</td><td>Show</td>
+        <td>Edit</td><td>Delete</td>  
+    </tr>
+    <% @products.each do |s| %>
+      <tr>
+        <td><%=s.name %></td>
+        <td><%=s.description%></td>
+        <td><%=s.price %></td>
+        <td><%= button_to 'Show', product_path(s), method: :get%></td>
+        <td><%= button_to 'Edit', edit_product_path(s), method: :get%></td>
+        <td><%= button_to 'Remove', product_path(s), method: :delete%></td>
+        <td>
+          <%= form_with model: @order_item do |f|%>
+            <%= f.hidden_field :product_id, value: s.id%>
+            <%= f.number_field :quantity, value:1, min 1%>
+            <%= f.submit "Add To Cart"%>
+          <%end%>
+        </td>  
+        
+      </tr>
+    <% end %>
+  </table>
+
+<%= button_to "Add New Product", new_product_path, method: :get%>
